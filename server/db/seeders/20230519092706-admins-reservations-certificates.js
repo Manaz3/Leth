@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt');
 
-const { Admin, Reservation, Certificate } = require('../models');
+const { Admin, Reservation, Certificate, Review } = require('../models');
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
@@ -53,11 +53,18 @@ module.exports = {
         status: true,
       },
     ]);
+    await Review.bulkCreate([
+      {
+        name: 'Ivan',
+        review: 'крутяк пушка бомба',
+      },
+    ]);
   },
 
   async down() {
     await Admin.destroy({ truncate: { cascade: true } });
     await Reservation.destroy({ truncate: { cascade: true } });
     await Certificate.destroy({ truncate: { cascade: true } });
+    await Review.destroy({ truncate: { cascade: true } });
   },
 };

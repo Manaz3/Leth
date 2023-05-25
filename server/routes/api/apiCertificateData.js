@@ -40,7 +40,7 @@ certificateRoute.post('/', async (req, res) => {
     };
 
     mailer(message);
-    console.log(mailer(message));
+    // console.log(mailer(message));
     
     res.status(200).json(certificateList);
   } catch (error) {
