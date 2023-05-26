@@ -4,6 +4,7 @@ const { Table, Reservation } = require('../../db/models');
 const mailer = require('../../nodemailer');
 
 // запрос массива резервов и столов
+// Вот отсюда приходи тот самый 500 статус
 mainRouter.get('/', async (req, res) => {
   try {
     if (req.session.adminId) {
@@ -14,6 +15,10 @@ mainRouter.get('/', async (req, res) => {
       } else {
         res.status(400).json({ success: false, message: 'Записи не найдены' });
       }
+    } else {
+      res
+        .status(401)
+        .json({ success: false, message: 'Пользователь не авторизован' });
     }
   } catch (err) {
     console.error(err);

@@ -1,13 +1,16 @@
 import { OneReservation, ReservId } from './types/OneReservation';
 import { ReservationState } from './types/ReservationState';
 
+// На этом фече приходит 500 статус, но не всегда
 export async function apiInitTable(): Promise<ReservationState> {
   const res = await fetch('/api/admin/reservation');
+  const data = await res.json();
+  console.log('res', res);
+
   if (res.status >= 400) {
-    const { error } = await res.json();
-    throw error;
+    throw data.error;
   }
-  return res.json();
+  return data;
 }
 
 export async function apiCreateReserv(

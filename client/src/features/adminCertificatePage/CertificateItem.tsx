@@ -1,8 +1,8 @@
-import React, { memo } from "react";
-import { useSelector } from "react-redux";
+import React, { memo } from 'react';
+import { useSelector } from 'react-redux';
 
-import { RootState} from "../../store";
-import "./CertificateItem.css";
+import { RootState } from '../../store';
+import './CertificateItem.css';
 
 function CertificateItem(): JSX.Element {
   const currentCertificates = useSelector(
@@ -17,8 +17,8 @@ function CertificateItem(): JSX.Element {
           {currentCertificates.map(
             (el) =>
               el.status && (
-                <div className="activ-certificate">
-                  <div key={el.id}>
+                <div key={el.id} className="activ-certificate">
+                  <div>
                     <div>Имя: {el.name}</div>
                     <div>Номер сертификата: {el.numberCertificates}</div>
                     <div>Сумма: {el.amount}</div>
@@ -29,7 +29,7 @@ function CertificateItem(): JSX.Element {
         </div>
       </div>
       <div className="title">
-      <p>Использованные сертификаты</p>  
+        <p>Использованные сертификаты</p>
         <div className="pasiv-container">
           {currentCertificates.map(
             (el) =>

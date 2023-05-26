@@ -9,12 +9,7 @@ import Timeline, {
   CursorMarker,
 } from 'react-calendar-timeline';
 import moment from 'moment';
-import { useAppDispatch } from '../../store';
-import {
-  initReservationsTable,
-  selectReservationList,
-  selectTablesList,
-} from './reservaionSlice';
+import { selectReservationList, selectTablesList } from './reservaionSlice';
 import 'react-calendar-timeline/lib/Timeline.css';
 import styles from './styles.module.css';
 
@@ -27,23 +22,19 @@ function ReservationTable({
   setShowModal,
   setActivModalReserv,
 }: Props): JSX.Element {
-  const dispatch = useAppDispatch();
-
   const tablesList = useSelector(selectTablesList);
   const reservationList = useSelector(selectReservationList);
 
   console.log('столы', tablesList);
   console.log('резервы', reservationList);
 
-  useEffect(() => {
-    dispatch(initReservationsTable());
-  }, [dispatch]);
-
+  // это формируется левая колонка со столами
   const groups = tablesList.map((table) => ({
     id: table.id,
     title: `Стол ${table.number}`,
   }));
 
+  // Тут резерву делается продолжительность брони, на 2 часа
   const addHours = (originalDate: Date, hoursToAdd = 2): Date => {
     const newDate = new Date(originalDate);
     const newHours = newDate.getHours() + hoursToAdd;
@@ -51,18 +42,22 @@ function ReservationTable({
     return newDate;
   };
 
+  // это формируются элементы резервов в таблице
   const items = reservationList.map((reserv) => ({
     id: reserv.id,
     group: reserv.table,
     title: reserv.name,
     start_time: new Date(reserv.date),
     end_time: addHours(new Date(reserv.date)),
+    // цвет текста так не назначается
     color: 'rgb(0, 0, 0)',
   }));
 
   // const itemRenderer = ({ getItemProps }) => {const color = itemContext.selected && itemContext.};
 
   const today = Date.now();
+
+  // Открытие модалки выбранного элемента в таблице
   const handleModal = (itemId: number): void => {
     setShowModal(true);
     setActivModalReserv(itemId);

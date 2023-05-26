@@ -19,6 +19,7 @@ import { Tables } from './types/Tables';
 const initialState: ReservationState = {
   tablesList: [],
   reservationList: [],
+  loadingAdminPages: false,
 };
 
 export const initReservationsTable = createAsyncThunk(
@@ -81,9 +82,16 @@ const timeTableSlice = createSlice({
   reducers: {},
   extraReducers(builder) {
     return builder
+      .addCase(initReservationsTable.pending, (state) => {
+        state.loadingAdminPages = true;
+      })
       .addCase(initReservationsTable.fulfilled, (state, action) => {
+        state.loadingAdminPages = false;
         state.tablesList = action.payload.tablesList;
         state.reservationList = action.payload.reservationList;
+      })
+      .addCase(initReservationsTable.rejected, (state) => {
+        state.loadingAdminPages = false;
       })
       .addCase(createNewReserv.fulfilled, (state, action) => {
         state.reservationList.push(action.payload);
@@ -112,5 +120,8 @@ export const selectReservationById = createSelector(
   (reservationList, reservId) =>
     reservationList.find((el) => el.id === reservId)
 );
+
+export const selectLoadingGif = (state: RootState): boolean =>
+  state.adminReservation.loadingAdminPages;
 
 export default timeTableSlice.reducer;

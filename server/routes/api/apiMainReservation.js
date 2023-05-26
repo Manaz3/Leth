@@ -5,7 +5,7 @@ const { Reservation } = require('../../db/models');
 mainReservationRouter.post('/', async (req, res) => {
   try {
     const data = req.body;
-    // IDOR???
+    // IDOR??? нужен ли он??
     const newReservation = await Reservation.create({
       name: data.name,
       phoneNumber: data.number,

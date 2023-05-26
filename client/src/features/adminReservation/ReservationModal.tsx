@@ -36,6 +36,7 @@ function ReservationModal({
 }: Props): JSX.Element {
   const dispatch = useAppDispatch();
 
+  // это Лиза знает что такое :)
   const activeReserv = useSelector((state: RootState) =>
     selectReservationById(state, activModalReserv)
   );
@@ -51,6 +52,7 @@ function ReservationModal({
     reset(activeReserv && transformReservationToFormData(activeReserv));
   }, [activModalReserv, activeReserv, reset]);
 
+  // получаем данные из формы и отправляем в базу для редактирования резерва
   const formSubmit = (value: ReservationData): void => {
     value.table = Number(value.table);
     dispatch(updateReserv(transformFormDataToReservation(value)));
@@ -58,6 +60,7 @@ function ReservationModal({
 
   const onError = (errors: any, e: any): void => console.log(errors, 'evnt', e);
 
+  // кнопка на отправку письма с уведомлением
   const handleSendMail = (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ): void => {
