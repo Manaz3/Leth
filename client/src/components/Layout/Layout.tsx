@@ -1,3 +1,4 @@
+/* eslint-disable react/react-in-jsx-scope */
 import './Layout.css';
 import Footer from '../Footer/Footer';
 import Navbar from '../NavBar/NavBar';

@@ -1,6 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { useDispatch } from 'react-redux';
 import timeTableSlice from './features/adminReservation/reservaionSlice';
+// eslint-disable-next-line import/no-cycle
 import CertificateSlice from './components/Certificate/CertificateSlice';
 import MainReservationSlice from './components/MainReservationForm/mainReservationFormSlice';
 import AdminAuthorizationSlice from './components/AdminAuthorization/AdminAuthorizationSlice';

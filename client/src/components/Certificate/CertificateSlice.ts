@@ -8,6 +8,7 @@ import {
   apiUpdateCertificate,
 } from './api';
 import { Certificate } from './type/Certificate';
+// eslint-disable-next-line import/no-cycle
 import { RootState } from '../../store';
 
 const initialState: CertificateState = {

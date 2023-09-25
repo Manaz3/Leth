@@ -1,5 +1,6 @@
 require('dotenv').config();
 const express = require('express');
+const path = require('path');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -31,3 +32,9 @@ try {
 } catch (error) {
   console.log(error.message);
 }
+
+app.use(express.static(path.join(__dirname, '../client/build')));
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../client/build/index.html'));
+});
